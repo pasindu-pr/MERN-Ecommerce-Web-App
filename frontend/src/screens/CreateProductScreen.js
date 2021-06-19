@@ -83,17 +83,30 @@ const CreateProductScreen = () => {
   const handleImageChange = async (e) => {
     setUploading(true);
     const image = e.target.files[0];
+
+    // const fileData = new FormData();
+    // fileData.append("image", image);
+
     setImgName(image.name);
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+      console.log(reader.result);
+    };
+  };
 
-    const fileData = new FormData();
-    fileData.append("image", image);
-
+  const uploadImage = async (base64Image) => {
     try {
-      const { data } = await axios.post("/api/products/upload", fileData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const { data } = await axios.post(
+        "/api/products/upload",
+        { data: base64Image },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       setUploadedPath(data.filePath);
       setProductDetails({

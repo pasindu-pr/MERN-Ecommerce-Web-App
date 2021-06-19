@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Card } from "semantic-ui-react";
 import Footer from "../Components/Footer";
 import CategoryComponent from "../Components/CategoryComponent";
 import ProductComponent from "../Components/ProductComponent";
@@ -48,7 +47,7 @@ const HomeScreen = () => {
       <CatContainer>
         <h3> Categories </h3>
         <CardsContainer>
-          <Card.Group textAlign="center">
+          <CardGroup textAlign="center">
             {categoriesLoading ? (
               <LoadingComponent />
             ) : (
@@ -63,10 +62,10 @@ const HomeScreen = () => {
                 ))}
               </>
             )}
-          </Card.Group>
+          </CardGroup>
           <h3> Latest Products</h3>
 
-          <Card.Group>
+          <CardGroup>
             {latestProductsLoading ? (
               <LoadingComponent />
             ) : (
@@ -83,7 +82,7 @@ const HomeScreen = () => {
                 ))}
               </>
             )}
-          </Card.Group>
+          </CardGroup>
         </CardsContainer>
       </CatContainer>
 
@@ -94,7 +93,7 @@ const HomeScreen = () => {
   );
 };
 
-const MainContainer = styled.div``;
+// const MainContainer = styled.div``;
 
 const CatContainer = styled.div`
   h3 {
@@ -106,6 +105,24 @@ const CatContainer = styled.div`
 
 const CardsContainer = styled.div`
   margin: 3rem 2rem;
+`;
+
+const CardGroup = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+
+  @media only screen and (max-width: 1308px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export default HomeScreen;

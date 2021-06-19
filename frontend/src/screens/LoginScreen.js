@@ -30,7 +30,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (success) {
-      history.goBack("/");
+      history.push("/");
     }
   }, [success, history]);
 

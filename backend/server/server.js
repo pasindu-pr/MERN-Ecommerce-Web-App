@@ -10,6 +10,7 @@ import authenticationRoutes from "../Routes/authenticationRoutes.js";
 import orderRoutes from "../Routes/orderRoutes.js";
 import paymentRoutes from "../Routes/paymentRoutes.js";
 import dashboardRoutes from "../Routes/dashboardRoutes.js";
+import mailRoutes from "../Routes/mailRoutes.js";
 import {
   notFoundHandler,
   customErrorHandler,
@@ -31,6 +32,7 @@ app.use("/api/users", authenticationRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/mails", mailRoutes);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

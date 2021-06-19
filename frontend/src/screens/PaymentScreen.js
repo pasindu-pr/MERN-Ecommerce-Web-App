@@ -27,8 +27,7 @@ const PaymentScreen = () => {
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [paymentSucess, setPaymentSuccess] = useState(false);
   const [orderUpdate, setOrderUpdate] = useState(false);
-  const [seconds, setSeconds] = useState(15);
-
+  const [seconds, setSeconds] = useState(5);
   useEffect(() => {
     dispatch(getOrderDetailsAction(id));
   }, [dispatch, id]);

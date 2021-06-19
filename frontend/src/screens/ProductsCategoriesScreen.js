@@ -26,31 +26,56 @@ const ProductsCategoriesScreen = () => {
       {loading && <LoadingComponent />}
       {products && (
         <MainContainer>
-          <CatHeading>{`${_.capitalize(category)}`}</CatHeading>
+          <CatHeading>{`${_.capitalize(category)}`} at Emporium</CatHeading>
 
-          <Card.Group>
-            {products.map((product) => (
-              <ProductComponent
-                key={product._id}
-                name={product.name}
-                image={product.image}
-                rating={product.rating}
-                price={product.price}
-                product_id={product._id}
-              />
-            ))}
-          </Card.Group>
+          <Cards>
+            <Card.Group>
+              {products.map((product) => (
+                <ProductComponent
+                  key={product._id}
+                  name={product.name}
+                  image={product.image}
+                  rating={product.rating}
+                  price={product.price}
+                  product_id={product._id}
+                />
+              ))}
+            </Card.Group>
+          </Cards>
         </MainContainer>
       )}
     </>
   );
 };
 
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  min-width: 100vw;
+  min-height: 100vh;
+`;
 
 const CatHeading = styled.h1`
-  margin: 2rem 0;
+  padding-top: 10px;
   text-align: center;
+  color: #161616;
+`;
+
+const Cards = styled.div`
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 20px;
+
+  @media only screen and (max-width: 1308px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default ProductsCategoriesScreen;

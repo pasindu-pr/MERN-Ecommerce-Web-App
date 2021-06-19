@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../Components/LoadingComponent";
 import { checkAuthAction } from "../actions/generalActions";
 import Fade from "react-reveal";
+import { Link } from "react-router-dom";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -53,12 +54,14 @@ const HomeScreen = () => {
             ) : (
               <>
                 {productsCategories.map((category) => (
-                  <CategoryComponent
-                    key={category._id}
-                    name={category.name}
-                    image={category.image}
-                    description={category.description}
-                  />
+                  <Link to={`/category/${category.name}`}>
+                    <CategoryComponent
+                      key={category._id}
+                      name={category.name}
+                      image={category.image}
+                      description={category.description}
+                    />
+                  </Link>
                 ))}
               </>
             )}
@@ -110,7 +113,7 @@ const CardsContainer = styled.div`
 const CardGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
+  grid-row-gap: 20px;
 
   @media only screen and (max-width: 1308px) {
     grid-template-columns: repeat(3, 1fr);
@@ -121,7 +124,7 @@ const CardGroup = styled.div`
   }
 
   @media only screen and (max-width: 720px) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 

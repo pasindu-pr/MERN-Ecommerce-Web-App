@@ -115,6 +115,8 @@ const getProductsByCategories = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
+const updateStock = asyncHandler(async (req, res) => {});
+
 export {
   getLatestProducts,
   getProductDetails,

@@ -30,7 +30,6 @@ const loginUser = asyncHandler(async (req, res) => {
 //Create new user
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(name, email, password);
 
   const userExist = await User.findOne({ email });
 

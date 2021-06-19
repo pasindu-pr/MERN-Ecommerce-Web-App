@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userRegisterAction } from "../actions/userActions";
 import { registerInfoValidate } from "../Configurations/authenticator";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
+import axios from "axios";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -46,11 +47,27 @@ const RegisterScreen = () => {
     (state) => state.registerUser
   );
 
+  const sendRegistrationEmail = async (name, email) => {
+    await axios.post(
+      "/api/mails/newsignup",
+      {
+        user: name,
+        uEmail: email,
+      },
+      {
+        headers: {
+          "Content-type": "Application/json",
+        },
+      }
+    );
+  };
+
   useEffect(() => {
     if (success) {
+      sendRegistrationEmail(name, email);
       history.push("/login");
     }
-  }, [success, history]);
+  }, [success, history, name, email]);
 
   return (
     <MainContainer>

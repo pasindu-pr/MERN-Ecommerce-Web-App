@@ -43,7 +43,7 @@ const HomeScreen = () => {
   }, [loggedUser, dispatch]);
 
   return (
-    <Fade duration="1000">
+    <Fade duration={1000}>
       <CarousalComponent />
       <CatContainer>
         <h3> Categories </h3>
@@ -54,9 +54,8 @@ const HomeScreen = () => {
             ) : (
               <>
                 {productsCategories.map((category) => (
-                  <Link to={`/category/${category.name}`}>
+                  <Link key={category._id} to={`/category/${category.name}`}>
                     <CategoryComponent
-                      key={category._id}
                       name={category.name}
                       image={category.image}
                       description={category.description}
@@ -114,6 +113,7 @@ const CardGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 20px;
+  grid-column-gap: 10px;
 
   @media only screen and (max-width: 1308px) {
     grid-template-columns: repeat(3, 1fr);

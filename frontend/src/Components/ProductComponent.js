@@ -50,6 +50,7 @@ const ProductComponent = ({ name, rating, price, image, product_id }) => {
                   key={index}
                   src="/images/star/star.png"
                   alt="star-rating"
+                  className="products-rating-star"
                 />
               ))}
             </Card.Meta>
@@ -71,6 +72,17 @@ const ProductContainer = styled.div`
     .card {
       width: 200px;
       height: 350px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .card {
+      width: 150px;
+      height: 300px;
+    }
+
+    .products-rating-star {
+      width: 10px;
     }
   }
 `;

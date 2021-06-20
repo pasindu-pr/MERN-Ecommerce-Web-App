@@ -16,12 +16,12 @@ const CarousalComponent = () => {
       >
         <Slider>
           {carouselImages.map((image, index) => (
-            <Slide index={index}>
+            <Slide key={index}>
               <Image src={image.src} className="carousel-image" />
             </Slide>
           ))}
         </Slider>
-        <style jsx>
+        <style jsx="true">
           {`
             .carousel-image {
               object-fit: cover;

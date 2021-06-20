@@ -26,6 +26,14 @@ const CategoryContainer = styled.div`
       height: 280px;
     }
   }
+
+  @media only screen and (max-width: 500px) {
+    .card {
+      width: 170px;
+      font-size: 12px;
+      height: 240px;
+    }
+  }
 `;
 
 export default CategoryComponent;

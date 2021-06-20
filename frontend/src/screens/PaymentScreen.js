@@ -101,6 +101,18 @@ const PaymentScreen = () => {
         paymentId: paymentId,
       });
 
+      const { data: emailData } = await axios.post(
+        "/api/mails/paymentconfirm",
+        {
+          uEmail: order.user.email,
+          orderID: order._id,
+          TotalPrice: order.totalOrderPrice,
+          payMethod: "Card",
+        }
+      );
+
+      console.log(emailData);
+
       if (data.status === "succeeded") {
         setOrderUpdate(true);
       }
@@ -127,6 +139,8 @@ const PaymentScreen = () => {
           </div>
 
           <Divider></Divider>
+
+          {console.log(order)}
 
           <img
             src="/images/payments/credit-cards.png"

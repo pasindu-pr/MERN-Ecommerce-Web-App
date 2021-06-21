@@ -77,6 +77,10 @@ const LoginScreen = () => {
             <Link to="/sign-up">
               <Message>New user? Sign up here.</Message>
             </Link>
+
+            <Link to="/login/password-reset">
+              <p>Forgot Password? </p>
+            </Link>
           </Grid.Column>
         </Grid>
       </MainContainer>
@@ -87,6 +91,10 @@ const LoginScreen = () => {
 const MainContainer = styled.div`
   .logo {
     width: 150px;
+  }
+
+  p {
+    margin-top: 10px;
   }
 `;
 

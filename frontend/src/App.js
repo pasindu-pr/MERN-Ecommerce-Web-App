@@ -20,6 +20,8 @@ import OrderManageScreen from "./screens/OrderManageScreen";
 import UserManagerScreen from "./screens/UserManagementScreen";
 import ProductsManagerScreen from "./screens/ProductsManagementScreen";
 import CreateProductScreen from "./screens/CreateProductScreen";
+import PasswordResetRequestScreen from "./screens/PasswordResetRequestScreen";
+import PasswordResetScreen from "./screens/PasswordResetScreen";
 
 import { ToastContainer, Zoom } from "react-toastify";
 import DashBoardCategoriesScreen from "./screens/DashBoardCategoriesScreen";
@@ -51,12 +53,23 @@ function App() {
             <Route path="/my-account" exact>
               <UserAccountScreen />
             </Route>
+
             <Route path="/sign-up">
               <RegisterScreen />
             </Route>
-            <Route path="/login">
+
+            <Route path="/password-reset/:token">
+              <PasswordResetScreen />
+            </Route>
+
+            <Route path="/login/password-reset">
+              <PasswordResetRequestScreen />
+            </Route>
+
+            <Route path="/login" exact>
               <LoginScreen />
             </Route>
+
             <Route path="/mycart">
               <ShoppingCartScreen />
             </Route>

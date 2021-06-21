@@ -4,6 +4,9 @@ import {
   comparePassword,
   generateJWToken,
 } from "../Utilities/authenticationUtils.js";
+import crypto from "crypto";
+import bcrypt from "bcryptjs";
+import { sendResetPasswordEmail } from "../Utilities/smtpSetup.js";
 
 //Authenticate User
 const loginUser = asyncHandler(async (req, res) => {
@@ -76,4 +79,56 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { loginUser, registerUser, getUserProfile };
+const sendPasswordResetEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  const userExist = await User.findOne({ email });
+
+  if (userExist) {
+    const token = crypto.randomBytes(20).toString("hex");
+    const tokenExpire = Date.now() + 3600000;
+    userExist.resetPasswordToken = token;
+    userExist.resetPasswordExpires = tokenExpire;
+    await userExist.save();
+    await sendResetPasswordEmail("Account Password Reset", email, token);
+    console.log(token);
+    res.status(200);
+    res.json({ message: "Email sent! Check your email for instructions" });
+  } else {
+    res.status(404);
+    throw new Error("User not found!");
+  }
+});
+
+const changePassword = asyncHandler(async (req, res) => {
+  const { password, token } = req.body;
+
+  console.log(password, token);
+
+  const userExist = await User.findOne({ resetPasswordToken: token });
+
+  if (userExist) {
+    if (userExist.resetPasswordExpires > Date.now()) {
+      userExist.password = password;
+      userExist.resetPasswordToken = null;
+      userExist.resetPasswordExpires = null;
+      await userExist.save();
+      res.status(200);
+      res.json({ message: "Password Reset Successful!" });
+    } else {
+      res.status(401);
+      throw new Error("Token has been expired. Please Generate another link.");
+    }
+  } else {
+    res.status(404);
+    throw new Error("User not found!");
+  }
+});
+
+export {
+  loginUser,
+  registerUser,
+  getUserProfile,
+  sendPasswordResetEmail,
+  changePassword,
+};

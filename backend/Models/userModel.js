@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
 
+  resetPasswordToken: {
+    type: String,
+  },
+
+  resetPasswordExpires: {
+    type: Date,
+  },
+
   accountType: {
     type: String,
     default: process.env.ACCOUNT_TYPE,

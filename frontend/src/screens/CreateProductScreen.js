@@ -84,29 +84,15 @@ const CreateProductScreen = () => {
     setUploading(true);
     const image = e.target.files[0];
 
-    // const fileData = new FormData();
-    // fileData.append("image", image);
+    const fileData = new FormData();
+    fileData.append("file", image);
 
-    setImgName(image.name);
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onloadend = () => {
-      uploadImage(reader.result);
-      console.log(reader.result);
-    };
-  };
-
-  const uploadImage = async (base64Image) => {
     try {
-      const { data } = await axios.post(
-        "/api/products/upload",
-        { data: base64Image },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const { data } = await axios.post("/api/products/upload", fileData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
 
       setUploadedPath(data.filePath);
       setProductDetails({
@@ -115,10 +101,23 @@ const CreateProductScreen = () => {
       });
       setUploading(false);
     } catch (error) {
-      setFormError(error.response.data);
+      setFormError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.response
+      );
       setUploading(false);
     }
+
+    // setImgName(image.name);
+    // const reader = new FileReader();
+    // reader.readAsDataURL(image);
+    // reader.onloadend = () => {
+    //   uploadImage(reader.result);
+    // };
   };
+
+  const uploadImage = async (base64Image) => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();

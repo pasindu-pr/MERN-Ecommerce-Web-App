@@ -4,6 +4,7 @@ import path from "path";
 import _ from "lodash";
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
+import fs from "fs";
 
 dotenv.config();
 
@@ -31,32 +32,38 @@ const getProductDetails = asyncHandler(async (req, res) => {
 });
 
 const uploadProductImage = asyncHandler(async (req, res) => {
-  let image = req.body.data;
+  let image = req.files.file;
+  image.name = Date.now() + "emporium_products" + path.extname(image.name);
 
-  const cloudres = await cloudinary.v2.uploader.upload(image, {
-    upload_preset: "Emporium_APP",
-    folder: "EmporiumApplication/Products/",
-    transformation: [{ width: 450, height: 450, crop: "fit" }],
+  image.mv(`${__dirname}/Uploads/${image.name}`, (err) => {
+    if (err) {
+      res.status(500).send(err);
+      console.log(err);
+    }
   });
 
-  res.status(200);
-  res.json({ filePath: cloudres.url });
+  const savedImage = `${__dirname}/Uploads/${image.name}`;
 
-  // image.name = Date.now() + "emporium_products" + path.extname(image.name);
+  await cloudinary.v2.uploader.upload(
+    savedImage,
+    {
+      upload_preset: "Emporium_APP",
+      folder: "EmporiumApplication/Products/",
+      transformation: [{ width: 450, height: 450, crop: "fit" }],
+    },
 
-  // console.log(image);
-  // image.mv(`${__dirname}/Uploads/${image.name}`, (err) => {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //     console.log(err);
-  //   }
-
-  //   res.status(200);
-  //   res.json({ filePath: `/Uploads/${image.name}` });
-  // });
-
-  // let image = req.body.image;
-  // console.log(image);
+    function (error, result) {
+      if (result) {
+        fs.unlink(savedImage, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+        res.status(200);
+        res.json({ filePath: result.secure_url });
+      }
+    }
+  );
 });
 
 const createProduct = asyncHandler(async (req, res) => {

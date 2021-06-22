@@ -3,9 +3,9 @@ import {
   createProduct,
   getLatestProducts,
   getProductDetails,
-  uploadProductImage,
   deleteProducts,
   getProductsByCategories,
+  uploadProductImage,
 } from "../Controllers/ProductsControllers.js";
 
 const router = express.Router();

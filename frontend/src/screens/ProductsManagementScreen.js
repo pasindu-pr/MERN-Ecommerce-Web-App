@@ -9,16 +9,22 @@ import {
 } from "../actions/productsActions";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingComponent from "../Components/LoadingComponent";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
+import Paginate from "../Components/Paginate";
 
 const ProductManageScreen = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
+
+  const pageNumber = params.page || 1;
 
   const user = useSelector((state) => state.user);
   const { loggedUser } = user;
 
-  const { loading, products } = useSelector((state) => state.dashBoardProducts);
+  const { loading, products, page, pages } = useSelector(
+    (state) => state.dashBoardProducts
+  );
   const productsToDelete = useSelector((state) => state.productsToDelete);
   const { success: productsDeleteSuccess } = useSelector(
     (state) => state.deleteProducts
@@ -33,8 +39,8 @@ const ProductManageScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(dashBoardProductsAction());
-  }, [dispatch]);
+    dispatch(dashBoardProductsAction(pageNumber));
+  }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (!loggedUser) {
@@ -109,6 +115,8 @@ const ProductManageScreen = () => {
               ? "Delete Product"
               : "Delete Products"}
           </Button>
+
+          <Paginate page={page} totalPages={pages} pageName="AdminProducts" />
         </MainContainer>
       )}
     </>

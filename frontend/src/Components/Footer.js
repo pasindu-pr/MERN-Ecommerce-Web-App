@@ -53,22 +53,40 @@ const Footer = () => {
 
 const FooterContainer = styled.div`
   font-family: "Nunito", sans-serif;
+  font-size: medium;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   padding: 2rem 2rem;
-  background-color: #98ddca;
+  background-color: #ff6701;
+
   li {
     list-style-type: none;
     margin-top: 15px;
+    color: white;
+  }
+
+  .column {
+    margin-top: 15px;
+  }
+
+  @media only screen and (max-width: 820px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media only screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
 const FooterText = styled.p`
   font-family: "Nunito", sans-serif;
   text-align: center;
-  background-color: #98ddca;
+  background-color: #ff6701;
+  font-size: rem;
+  font-weight: 600;
+  padding-bottom: 20px;
+  color: white;
 `;
 
 export default Footer;

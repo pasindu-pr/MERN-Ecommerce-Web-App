@@ -10,7 +10,7 @@ dotenv.config();
 const getLatestProducts = asyncHandler(async (req, res) => {
   const latestProducts = await Product.find({})
     .sort({ createdAt: "descending" })
-    .limit(6);
+    .limit(8);
 
   res.json(latestProducts);
 });
@@ -90,14 +90,21 @@ const deleteProducts = asyncHandler(async (req, res) => {
 
 const getProductsByCategories = asyncHandler(async (req, res) => {
   const category = req.params.category;
+  const pageSize = 12;
+  const page = Number(req.query.page) || 1;
 
+  const productsCounts = await Product.countDocuments({ category });
   const products = await Product.find({
     category,
-  });
+  })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  console.log(productsCounts);
 
   console.log(category);
   res.status(200);
-  res.json(products);
+  res.json({ products, page, pages: Math.ceil(productsCounts / pageSize) });
 });
 
 export {

@@ -83,7 +83,7 @@ function App() {
             <Route path="/dashboard/categories" exact>
               <DashBoardCategoriesScreen />
             </Route>
-            <Route path="/dashboard/products" exact>
+            <Route path="/dashboard/products/:page" exact>
               <ProductsManagerScreen />
             </Route>
             <Route path="/dashboard/users" exact>
@@ -92,8 +92,12 @@ function App() {
             <Route path="/dashboard/orders" exact>
               <OrderManageScreen />
             </Route>
+            {/* 
+            <Route path="/category/:category" exact>
+              <ProductsByCategoriesScreen />
+            </Route> */}
 
-            <Route path="/category/:category">
+            <Route path="/category/:category/page/:pageNumber">
               <ProductsByCategoriesScreen />
             </Route>
 

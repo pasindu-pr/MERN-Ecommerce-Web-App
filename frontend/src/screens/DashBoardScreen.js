@@ -36,7 +36,7 @@ const DashBoardScreen = () => {
   };
 
   const productHandler = () => {
-    history.push("/dashboard/products");
+    history.push("/dashboard/products/1");
   };
 
   const categoryHandler = () => {

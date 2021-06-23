@@ -36,7 +36,13 @@ const dashBoardProductsReducer = (state = { products: {} }, action) => {
       return { loading: true, success: false, state: { products: {} } };
 
     case "DASHBOARD_PRODUCTS_SUCCESS":
-      return { loading: false, success: true, products: action.payload };
+      return {
+        loading: false,
+        success: true,
+        products: action.payload.products,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      };
 
     case "DASHBOARD_PRODUCTS_FAIL":
       return { loading: false, success: false, error: action.payload };

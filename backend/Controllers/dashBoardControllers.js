@@ -31,8 +31,16 @@ const getDashboardUsers = asyncHandler(async (req, res) => {
 });
 
 const getDashboardProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
+  const pageSize = 10;
+  const page = Number(req.query.page) || 1;
+
+  const productsCounts = await Product.countDocuments();
+  const products = await Product.find()
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.status(200);
+  res.json({ products, page, pages: Math.ceil(productsCounts / pageSize) });
 });
 
 export {

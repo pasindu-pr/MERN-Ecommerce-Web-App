@@ -60,13 +60,17 @@ const getProductDetailsAction = (product_id) => async (dispatch) => {
   }
 };
 
-const getProductsByCategoriesAction = (category) => async (dispatch) => {
+const getProductsByCategoriesAction = (category, page = "") => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: "PRODUCTS_BY_CAT_REQUEST",
     });
 
-    const { data } = await axios.get(`/api/products/cat/${category}`);
+    const { data } = await axios.get(
+      `/api/products/cat/${category}?page=${page}`
+    );
 
     dispatch({
       type: "PRODUCTS_BY_CAT_SUCCESS",

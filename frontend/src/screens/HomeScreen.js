@@ -54,7 +54,10 @@ const HomeScreen = () => {
             ) : (
               <>
                 {productsCategories.map((category) => (
-                  <Link key={category._id} to={`/category/${category.name}`}>
+                  <Link
+                    key={category._id}
+                    to={`/category/${category.name}/page/1`}
+                  >
                     <CategoryComponent
                       name={category.name}
                       image={category.image}

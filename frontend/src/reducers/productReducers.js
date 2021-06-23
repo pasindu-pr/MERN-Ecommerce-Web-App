@@ -36,7 +36,13 @@ const getProductsByCategoryReducer = (state = { products: [] }, action) => {
       return { loading: true, products: [] };
 
     case "PRODUCTS_BY_CAT_SUCCESS":
-      return { loading: false, success: true, products: action.payload };
+      return {
+        loading: false,
+        success: true,
+        products: action.payload.products,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      };
 
     case "PRODUCTS_BY_CAT_FAILURE":
       return { loading: false, success: false, error: action.payload };

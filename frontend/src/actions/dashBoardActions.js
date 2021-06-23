@@ -102,7 +102,7 @@ const dashBoardUsersAction = () => async (dispatch, getState) => {
   }
 };
 
-const dashBoardProductsAction = () => async (dispatch, getState) => {
+const dashBoardProductsAction = (page = "") => async (dispatch, getState) => {
   try {
     dispatch({
       type: "DASHBOARD_PRODUCTS_REQUEST",
@@ -119,7 +119,10 @@ const dashBoardProductsAction = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/dashboard/products", configuration);
+    const { data } = await axios.get(
+      `/api/dashboard/products?page=${page}`,
+      configuration
+    );
 
     dispatch({
       type: "DASHBOARD_PRODUCTS_SUCCESS",

@@ -163,6 +163,9 @@ const MainContainer = styled.div`
 
   .image {
     border-radius: 10px !important;
+    max-width: 550px;
+    max-height: 450px;
+    object-fit: contain;
   }
 
   .right-column {

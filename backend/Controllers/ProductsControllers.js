@@ -4,17 +4,8 @@ import path from "path";
 import _ from "lodash";
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
-import fs from "fs";
 
 dotenv.config();
-
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-const __dirname = path.resolve();
 
 const getLatestProducts = asyncHandler(async (req, res) => {
   const latestProducts = await Product.find({})
@@ -31,39 +22,26 @@ const getProductDetails = asyncHandler(async (req, res) => {
   res.json(productDetails);
 });
 
-const uploadProductImage = asyncHandler(async (req, res) => {
-  let image = req.files.file;
-  image.name = Date.now() + "emporium_products" + path.extname(image.name);
+const getCloudinaryProfile = asyncHandler(async (req, res) => {
+  const cloudName = process.env.CLOUDINARY_NAME;
 
-  image.mv(`${__dirname}/Uploads/${image.name}`, (err) => {
-    if (err) {
-      res.status(500).send(err);
-      console.log(err);
-    }
-  });
+  res.status(200);
+  res.json({ cloudName });
+});
 
-  const savedImage = `${__dirname}/Uploads/${image.name}`;
-
-  await cloudinary.v2.uploader.upload(
-    savedImage,
+const getCloudinarySign = asyncHandler(async (req, res) => {
+  const timestamp = Math.round(new Date().getTime() / 1000);
+  const signature = cloudinary.v2.utils.api_sign_request(
     {
-      upload_preset: "Emporium_APP",
-      folder: "EmporiumApplication/Products/",
-      transformation: [{ width: 450, height: 450, crop: "fit" }],
+      timestamp: timestamp,
     },
-
-    function (error, result) {
-      if (result) {
-        fs.unlink(savedImage, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-        res.status(200);
-        res.json({ filePath: result.secure_url });
-      }
-    }
+    process.env.CLOUDINARY_API_SECRET
   );
+
+  const api_key = process.env.CLOUDINARY_API_KEY;
+
+  res.status(200);
+  res.json({ signature, timestamp, api_key });
 });
 
 const createProduct = asyncHandler(async (req, res) => {
@@ -122,13 +100,12 @@ const getProductsByCategories = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
-const updateStock = asyncHandler(async (req, res) => {});
-
 export {
   getLatestProducts,
   getProductDetails,
   createProduct,
-  uploadProductImage,
   deleteProducts,
   getProductsByCategories,
+  getCloudinarySign,
+  getCloudinaryProfile,
 };

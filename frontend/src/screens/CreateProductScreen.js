@@ -23,6 +23,7 @@ const CreateProductScreen = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadedPath, setUploadedPath] = useState("");
   const [formError, setFormError] = useState("");
+  const [cloudName, setCloudName] = useState("");
 
   const dispatch = useDispatch();
   const upload_input = useRef(null);
@@ -30,6 +31,15 @@ const CreateProductScreen = () => {
   useEffect(() => {
     dispatch(getCategoriesAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    const getCloudinaryName = async () => {
+      const { data } = await axios.get("/api/products/cloudinary-profile");
+      setCloudName(data.cloudName);
+    };
+
+    getCloudinaryName();
+  }, []);
 
   useEffect(() => {
     if (success) {
@@ -83,24 +93,29 @@ const CreateProductScreen = () => {
   const handleImageChange = async (e) => {
     setUploading(true);
     const image = e.target.files[0];
-
+    setImgName(image.name);
     const fileData = new FormData();
     fileData.append("file", image);
+    fileData.append("upload_preset", "emporium_unsigned");
+    fileData.append("folder", "EmporiumApplication/Products/");
+
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
     try {
-      const { data } = await axios.post("/api/products/upload", fileData, {
+      const { data } = await axios.post(url, fileData, {
         headers: {
           "Content-type": "multipart/form-data",
         },
       });
 
-      setUploadedPath(data.filePath);
+      setUploadedPath(data.eager[0].secure_url);
       setProductDetails({
         ...productDetails,
-        image: data.filePath,
+        image: data.eager[0].secure_url,
       });
       setUploading(false);
     } catch (error) {
+      console.log(error);
       setFormError(
         error.response && error.response.data.message
           ? error.response.data.message
@@ -108,21 +123,12 @@ const CreateProductScreen = () => {
       );
       setUploading(false);
     }
-
-    // setImgName(image.name);
-    // const reader = new FileReader();
-    // reader.readAsDataURL(image);
-    // reader.onloadend = () => {
-    //   uploadImage(reader.result);
-    // };
   };
-
-  const uploadImage = async (base64Image) => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { error } = checkProductDetails(productDetails);
-
+    console.log(error);
     if (!error) {
       dispatch(createNewProductAction(productDetails));
     } else {

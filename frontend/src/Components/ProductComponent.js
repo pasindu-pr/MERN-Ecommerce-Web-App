@@ -68,6 +68,11 @@ const ProductContainer = styled.div`
     height: 420px;
   }
 
+  .image {
+    width: 550px;
+    max-height: 70%;
+  }
+
   @media only screen and (max-width: 720px) {
     .card {
       width: 200px;

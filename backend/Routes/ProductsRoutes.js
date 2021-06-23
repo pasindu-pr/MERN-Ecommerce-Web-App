@@ -5,13 +5,15 @@ import {
   getProductDetails,
   deleteProducts,
   getProductsByCategories,
-  uploadProductImage,
+  getCloudinarySign,
+  getCloudinaryProfile,
 } from "../Controllers/ProductsControllers.js";
 
 const router = express.Router();
 
 router.route("/new").post(createProduct);
-router.route("/upload").post(uploadProductImage);
+router.route("/cloudinary-sign").get(getCloudinarySign);
+router.route("/cloudinary-profile").get(getCloudinaryProfile);
 router.route("/latest").get(getLatestProducts);
 router.route("/cat/:category").get(getProductsByCategories);
 router.route("/:id").get(getProductDetails);

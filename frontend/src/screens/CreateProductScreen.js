@@ -10,6 +10,7 @@ import styled from "styled-components";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import ProgressComponent from "../Components/ProgressComponent";
 
 const CreateProductScreen = () => {
   const history = useHistory();
@@ -24,6 +25,7 @@ const CreateProductScreen = () => {
   const [uploadedPath, setUploadedPath] = useState("");
   const [formError, setFormError] = useState("");
   const [cloudName, setCloudName] = useState("");
+  const [uploadPrecentage, setUploadPrecentage] = useState(0);
 
   const dispatch = useDispatch();
   const upload_input = useRef(null);
@@ -105,6 +107,13 @@ const CreateProductScreen = () => {
       const { data } = await axios.post(url, fileData, {
         headers: {
           "Content-type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          setUploadPrecentage(
+            parseInt(
+              Math.round(progressEvent.loaded * 100) / progressEvent.total
+            )
+          );
         },
       });
 
@@ -196,7 +205,7 @@ const CreateProductScreen = () => {
               />
             )}
           </div>
-
+          {imgName !== "" && <ProgressComponent progress={uploadPrecentage} />}
           <label> Product Desciption: </label>
           <TextArea
             placeholder="Enter product description"
@@ -262,6 +271,7 @@ const FormContainer = styled.div`
   .upload-image {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
   }
 
   .uploaded-prod-image {

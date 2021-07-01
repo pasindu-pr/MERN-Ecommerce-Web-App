@@ -7,7 +7,8 @@ import { getProductDetailsAction } from "../actions/productsActions";
 import { addToCartAction } from "../actions/shoppingCartActions";
 import LoadingComponent from "../Components/LoadingComponent";
 import { toast } from "react-toastify";
-import Zoom from "react-reveal";
+import Fade from "react-reveal/Fade";
+import Zoom from "react-reveal/Zoom";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductScreen = () => {
@@ -79,19 +80,21 @@ const ProductScreen = () => {
   }, [dispatch, productId]);
 
   return (
-    <Zoom>
-      <MainContainer className="ui">
-        {loading ? (
-          <LoadingComponent />
-        ) : (
-          <>
-            <Grid columns={2} stackable>
-              <Grid.Column>
+    <MainContainer className="ui">
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          <Grid columns={2} stackable>
+            <Grid.Column>
+              <Zoom duration={1000}>
                 <Image bordered className="centered" src={product.image} />
-              </Grid.Column>
+              </Zoom>
+            </Grid.Column>
 
-              <Grid.Column className="right-column" verticalAlign="middle">
-                <DeatilsContainer>
+            <Grid.Column className="right-column" verticalAlign="middle">
+              <DeatilsContainer>
+                <Fade bottom duration={1000}>
                   <h3>{product.name}</h3>
                   <p>
                     Rating : {product.rating} <br />
@@ -142,13 +145,13 @@ const ProductScreen = () => {
                   >
                     <Icon name="arrow left" /> Previous Page
                   </h4>
-                </DeatilsContainer>
-              </Grid.Column>
-            </Grid>
-          </>
-        )}
-      </MainContainer>
-    </Zoom>
+                </Fade>
+              </DeatilsContainer>
+            </Grid.Column>
+          </Grid>
+        </>
+      )}
+    </MainContainer>
   );
 };
 
@@ -183,6 +186,10 @@ const MainContainer = styled.div`
   @media only screen and (max-width: 480px) {
     .grid {
       margin-top: 1rem;
+    }
+
+    .image {
+      width: 100%;
     }
   }
 

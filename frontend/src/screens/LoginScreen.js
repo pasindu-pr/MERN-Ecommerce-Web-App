@@ -14,7 +14,7 @@ import { userLoginAction } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
-import Fade from "react-reveal";
+import Fade from "react-reveal/Fade";
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -35,7 +35,7 @@ const LoginScreen = () => {
   }, [success, history]);
 
   return (
-    <Fade>
+    <Fade duration={1500}>
       <MainContainer>
         <Grid
           textAlign="center"

@@ -2,12 +2,11 @@ import React from "react";
 import { CarouselProvider, Slider, Slide, Image } from "pure-react-carousel";
 import carouselImages from "../carouselImages";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import Fade from "react-reveal";
+import styled from "styled-components";
 
 const CarousalComponent = () => {
   return (
     <>
-      <Fade></Fade>
       <CarouselProvider
         naturalSlideWidth={100}
         naturalSlideHeight={30}
@@ -17,10 +16,15 @@ const CarousalComponent = () => {
         <Slider>
           {carouselImages.map((image, index) => (
             <Slide key={index}>
-              <Image src={image.src} className="carousel-image" />
+              <Image
+                className="slider-cont"
+                src={image.src}
+                className="carousel-image"
+              />
             </Slide>
           ))}
         </Slider>
+
         <style jsx="true">
           {`
             .carousel-image {

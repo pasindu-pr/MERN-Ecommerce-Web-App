@@ -35,8 +35,13 @@ const UserAccountScreen = () => {
                 <li> Email: {loggedUser.email} </li>
                 <li> Joined : {loggedUser.joined.substring(0, 10)} </li>
                 <Button color="green" onClick={handleClick}>
-                  {" "}
-                  Log Out{" "}
+                  Log Out
+                </Button>
+                <Button
+                  color="green"
+                  onClick={() => alert("Feature will be available soon")}
+                >
+                  My Orders
                 </Button>
               </ul>
             </UserCard>

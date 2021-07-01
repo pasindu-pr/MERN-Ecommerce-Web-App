@@ -11,9 +11,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../Components/LoadingComponent";
 import { checkAuthAction } from "../actions/generalActions";
-import Fade from "react-reveal";
+import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
-
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
@@ -43,58 +42,60 @@ const HomeScreen = () => {
   }, [loggedUser, dispatch]);
 
   return (
-    <Fade duration={1000}>
-      <CarousalComponent />
-      <CatContainer>
-        <h3> Categories </h3>
-        <CardsContainer>
-          <CardGroup textAlign="center">
-            {categoriesLoading ? (
-              <LoadingComponent />
-            ) : (
-              <>
-                {productsCategories.map((category) => (
-                  <Link
-                    key={category._id}
-                    to={`/category/${category.name}/page/1`}
-                  >
-                    <CategoryComponent
-                      name={category.name}
-                      image={category.image}
-                      description={category.description}
+    <>
+      <Fade bottom>
+        <CarousalComponent />
+        <CatContainer>
+          <h3> Categories </h3>
+          <CardsContainer>
+            <CatCardsGroup textAlign="center">
+              {categoriesLoading ? (
+                <LoadingComponent />
+              ) : (
+                <>
+                  {productsCategories.map((category) => (
+                    <Link
+                      key={category._id}
+                      to={`/category/${category.name}/page/1`}
+                    >
+                      <CategoryComponent
+                        name={category.name}
+                        image={category.image}
+                        description={category.description}
+                      />
+                    </Link>
+                  ))}
+                </>
+              )}
+            </CatCardsGroup>
+            <h3> Latest Products</h3>
+
+            <CardGroup>
+              {latestProductsLoading ? (
+                <LoadingComponent />
+              ) : (
+                <>
+                  {products.map((product) => (
+                    <ProductComponent
+                      key={product._id}
+                      name={product.name}
+                      image={product.image}
+                      rating={product.rating}
+                      price={product.price}
+                      product_id={product._id}
                     />
-                  </Link>
-                ))}
-              </>
-            )}
-          </CardGroup>
-          <h3> Latest Products</h3>
+                  ))}
+                </>
+              )}
+            </CardGroup>
+          </CardsContainer>
+        </CatContainer>
 
-          <CardGroup>
-            {latestProductsLoading ? (
-              <LoadingComponent />
-            ) : (
-              <>
-                {products.map((product) => (
-                  <ProductComponent
-                    key={product._id}
-                    name={product.name}
-                    image={product.image}
-                    rating={product.rating}
-                    price={product.price}
-                    product_id={product._id}
-                  />
-                ))}
-              </>
-            )}
-          </CardGroup>
-        </CardsContainer>
-      </CatContainer>
-
-      <footer>
-        <Footer />
-      </footer>
-    </Fade>
+        <footer>
+          <Footer />
+        </footer>
+      </Fade>
+    </>
   );
 };
 
@@ -116,7 +117,7 @@ const CardGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 20px;
-  grid-column-gap: 10px;
+  grid-column-gap: 20px;
 
   @media only screen and (max-width: 1308px) {
     grid-template-columns: repeat(3, 1fr);
@@ -127,6 +128,14 @@ const CardGroup = styled.div`
   }
 
   @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const CatCardsGroup = styled(CardGroup)`
+  grid-template-columns: repeat(3, 1fr);
+
+  @media only screen and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
   }
 `;

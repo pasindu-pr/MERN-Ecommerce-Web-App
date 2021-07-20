@@ -13,6 +13,7 @@ import LoadingComponent from "../Components/LoadingComponent";
 import { checkAuthAction } from "../actions/generalActions";
 import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
+
 const HomeScreen = () => {
   const dispatch = useDispatch();
 

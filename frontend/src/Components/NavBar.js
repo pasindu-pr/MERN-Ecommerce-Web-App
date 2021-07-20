@@ -48,7 +48,7 @@ const NavBar = () => {
             {categories && (
               <>
                 {categories.map((category, index) => (
-                  <Link key={index} to={`/category/${category.name}`}>
+                  <Link key={index} to={`/category/${category.name}/page/1`}>
                     <li onClick={navBarHandler}>{category.name}</li>
                   </Link>
                 ))}

@@ -25,8 +25,8 @@ const ShippingScreen = () => {
   const [formError, setFormError] = useState("");
 
   useEffect(() => {
-    if (!loggedUser) {
-      history.push("/login");
+    if (loggedUser && Object.keys(loggedUser).length === 0) {
+      history.push("/login?redirect=/order/shipping");
     }
   }, [loggedUser, history]);
 

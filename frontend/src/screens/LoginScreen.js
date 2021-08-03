@@ -12,7 +12,7 @@ import {
 import logo from "../images/logo/emporium-logo.png";
 import { userLoginAction } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import Fade from "react-reveal/Fade";
 
@@ -21,6 +21,22 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(undefined);
+  const [redirectError, setRedirectError] = useState("");
+
+  const getRedirectFromURl = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectRoute = urlParams.get("redirect");
+
+    if (redirectRoute) {
+      setRedirect(redirectRoute);
+      setRedirectError("Please login to place the order!");
+    }
+  };
+
+  useEffect(() => {
+    getRedirectFromURl();
+  }, []);
 
   const submitHandler = () => {
     dispatch(userLoginAction({ email, password }));
@@ -30,7 +46,11 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (success) {
-      history.push("/");
+      if (!redirect) {
+        history.push("/");
+      } else {
+        history.push(redirect);
+      }
     }
   }, [success, history]);
 
@@ -50,6 +70,9 @@ const LoginScreen = () => {
 
             <Form size="large" onSubmit={submitHandler} loading={loading}>
               <Segment stacked>
+                {redirectError && (
+                  <MessageComponent content={redirectError.toString()} />
+                )}
                 {error && <MessageComponent content={error.toString()} />}
                 <Form.Input
                   fluid

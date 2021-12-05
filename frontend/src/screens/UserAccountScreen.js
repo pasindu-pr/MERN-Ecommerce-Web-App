@@ -3,6 +3,7 @@ import { Image, Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import { userLogoutAction } from "../actions/generalActions";
 
 const UserAccountScreen = () => {

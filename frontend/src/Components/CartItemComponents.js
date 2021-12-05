@@ -1,8 +1,9 @@
 import React from "react";
 import { Item, Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { removeFromCartAction } from "../actions/shoppingCartActions";
 import styled from "styled-components";
+
+import { removeFromCartAction } from "../actions/shoppingCartActions";
 
 const CartItemComponents = ({ productId, name, quantity, price, image }) => {
   const dispatch = useDispatch();

@@ -1,14 +1,15 @@
 import React from "react";
-import mainlogo from "../images/logo/emporium-logo.png";
 import styled from "styled-components";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import ShoppingBasketRoundedIcon from "@material-ui/icons/ShoppingBasketRounded";
 import { IconButton } from "@material-ui/core";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import CloseIcon from "@material-ui/icons/Close";
-import categories from "./categories";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+
+import mainlogo from "../images/logo/emporium-logo.png";
+import categories from "./categories";
 
 const NavBar = () => {
   const dispatch = useDispatch();

@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { Grid, Button, Item, Select } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { orderPricesActions } from "../actions/orderActions";
 import { useDispatch } from "react-redux";
+
+import { orderPricesActions } from "../actions/orderActions";
 import CartItemComponent from "../Components/CartItemComponents";
 
 const ShoppingCartScreen = () => {

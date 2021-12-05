@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Grid, Divider, Button } from "semantic-ui-react";
+
+import { getOrderDetailsAction } from "../actions/orderActions";
 import CheckoutItemComponent from "../Components/CheckoutItemComponent";
 import LoadingComponent from "../Components/LoadingComponent";
-import { getOrderDetailsAction } from "../actions/orderActions";
 
 const OrderScreen = () => {
   const dispatch = useDispatch();

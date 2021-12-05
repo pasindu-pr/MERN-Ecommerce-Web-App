@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { truncateName } from "../Configurations/nameConfigure";
 import styled from "styled-components";
+
+import { truncateName } from "../Configurations/nameConfigure";
 
 const ProductComponent = ({ name, rating, price, image, product_id }) => {
   const [stars, setStars] = useState([]);

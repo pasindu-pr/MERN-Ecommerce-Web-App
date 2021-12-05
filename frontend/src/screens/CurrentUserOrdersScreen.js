@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Table, Button, Icon } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
-import LoadingComponent from "../Components/LoadingComponent";
 import { useHistory, useParams } from "react-router-dom";
-import Paginate from "../Components/Paginate";
+
 import { getCurrentUserOrdersAction } from "../actions/orderActions";
+import LoadingComponent from "../Components/LoadingComponent";
+import Paginate from "../Components/Paginate";
 
 const CurrentUserOrdersScreen = () => {
   const dispatch = useDispatch();

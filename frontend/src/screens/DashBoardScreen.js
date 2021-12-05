@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Statistic, Button } from "semantic-ui-react";
+import { useDispatch, useSelector } from "react-redux";
+
 import LoadingComponent from "../Components/LoadingComponent";
 import { dashBoardDetailsAction } from "../actions/dashBoardActions";
-import { useDispatch, useSelector } from "react-redux";
 
 const DashBoardScreen = () => {
   const dispatch = useDispatch();

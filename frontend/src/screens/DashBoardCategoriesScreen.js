@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon, Table } from "semantic-ui-react";
 import styled from "styled-components";
+
 import { getCategoriesAction } from "../actions/productsActions";
 import LoadingComponent from "../Components/LoadingComponent";
 

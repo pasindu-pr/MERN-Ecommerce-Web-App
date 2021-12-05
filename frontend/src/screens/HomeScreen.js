@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Footer from "../Components/Footer";
-import CategoryComponent from "../Components/CategoryComponent";
-import ProductComponent from "../Components/ProductComponent";
-import CarousalComponent from "../Components/CarousalComponent";
+import Fade from "react-reveal/Fade";
+import { Link } from "react-router-dom";
+import { Divider, Header } from "semantic-ui-react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   getLatestProductsAction,
   getCategoriesAction,
 } from "../actions/productsActions";
-import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../Components/LoadingComponent";
 import { checkAuthAction } from "../actions/generalActions";
-import Fade from "react-reveal/Fade";
-import { Link } from "react-router-dom";
-import { Divider, Header } from "semantic-ui-react";
+
+import CategoryComponent from "../Components/CategoryComponent";
+import ProductComponent from "../Components/ProductComponent";
+import CarousalComponent from "../Components/CarousalComponent";
+import Footer from "../Components/Footer";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

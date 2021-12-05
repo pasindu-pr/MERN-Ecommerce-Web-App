@@ -3,7 +3,9 @@ import GlobalStyles from "./GlobalStyle/globalStyle";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import styled from "styled-components";
+import { ToastContainer, Zoom } from "react-toastify";
 import "semantic-ui-css/semantic.min.css";
+
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import ProductsByCategoriesScreen from "./screens/ProductsCategoriesScreen";
@@ -23,8 +25,6 @@ import CreateProductScreen from "./screens/CreateProductScreen";
 import PasswordResetRequestScreen from "./screens/PasswordResetRequestScreen";
 import PasswordResetScreen from "./screens/PasswordResetScreen";
 import CurrentUserOrdersScreen from "./screens/CurrentUserOrdersScreen";
-
-import { ToastContainer, Zoom } from "react-toastify";
 import DashBoardCategoriesScreen from "./screens/DashBoardCategoriesScreen";
 
 function App() {

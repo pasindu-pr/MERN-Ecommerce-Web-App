@@ -5,9 +5,10 @@ import { getOrderDetailsAction } from "../actions/orderActions";
 import styled from "styled-components";
 import { Button, Divider, Form } from "semantic-ui-react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import axios from "axios";
+
 import LoadingComponent from "../Components/LoadingComponent";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
-import axios from "axios";
 
 const PaymentScreen = () => {
   const { id } = useParams();

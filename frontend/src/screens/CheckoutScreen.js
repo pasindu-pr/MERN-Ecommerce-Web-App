@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Grid, Divider, Button } from "semantic-ui-react";
+
 import CheckoutItemComponent from "../Components/CheckoutItemComponent";
 import { createNewOrderAction } from "../actions/orderActions";
 
@@ -12,14 +13,8 @@ const CheckoutScreen = () => {
 
   //Get Shipping Details
   const shippingDetails = useSelector((state) => state.shippingDetails);
-  const {
-    fName,
-    lName,
-    address1,
-    address2,
-    city,
-    state,
-  } = shippingDetails.shippingDetails;
+  const { fName, lName, address1, address2, city, state } =
+    shippingDetails.shippingDetails;
 
   const {
     loading: newOrderLoading,

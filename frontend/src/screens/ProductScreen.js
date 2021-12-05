@@ -3,13 +3,14 @@ import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Image, Grid, Icon } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetailsAction } from "../actions/productsActions";
-import { addToCartAction } from "../actions/shoppingCartActions";
-import LoadingComponent from "../Components/LoadingComponent";
 import { toast } from "react-toastify";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import "react-toastify/dist/ReactToastify.css";
+
+import { getProductDetailsAction } from "../actions/productsActions";
+import { addToCartAction } from "../actions/shoppingCartActions";
+import LoadingComponent from "../Components/LoadingComponent";
 
 const ProductScreen = () => {
   const dispatch = useDispatch();

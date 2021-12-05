@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-import logo from "../images/logo/emporium-logo.png";
-import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import Fade from "react-reveal";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
+
+import logo from "../images/logo/emporium-logo.png";
+import MessageComponent from "../Components/MessageComponents/MessageComponent";
 
 const PasswordResetScreen = () => {
   const [process, setProcess] = useState(false);

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import { Form, Divider } from "semantic-ui-react";
-import { shippingDetailsActions } from "../actions/orderActions";
-import { checkShippingDetails } from "../Configurations/shippingDetailsConfigure";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import MessageComponent from "../Components/MessageComponents/MessageComponent";
+import { shippingDetailsActions } from "../actions/orderActions";
+import { checkShippingDetails } from "../Configurations/shippingDetailsConfigure";
 
 const ShippingScreen = () => {
   const dispatch = useDispatch();

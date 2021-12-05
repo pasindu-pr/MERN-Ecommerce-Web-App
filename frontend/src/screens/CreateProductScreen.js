@@ -1,15 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { Form, Select, Button, TextArea } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import {
   getCategoriesAction,
   createNewProductAction,
 } from "../actions/productsActions";
 import { checkProductDetails } from "../Configurations/productConifgure";
-import styled from "styled-components";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
 import ProgressComponent from "../Components/ProgressComponent";
 
 const CreateProductScreen = () => {

@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import _ from "lodash";
+import styled from "styled-components";
+import { Divider, Header } from "semantic-ui-react";
+
+import { getProductsByCategoriesAction } from "../actions/productsActions";
+
 import LoadingComponent from "../Components/LoadingComponent";
 import ProductComponent from "../Components/ProductComponent";
-import styled from "styled-components";
-import { getProductsByCategoriesAction } from "../actions/productsActions";
-import _ from "lodash";
 import Footer from "../Components/Footer";
 import Paginate from "../Components/Paginate";
-import { Divider, Header } from "semantic-ui-react";
 
 const ProductsCategoriesScreen = () => {
   const dispatch = useDispatch();

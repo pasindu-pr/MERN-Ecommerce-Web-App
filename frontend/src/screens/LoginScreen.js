@@ -9,12 +9,13 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
-import logo from "../images/logo/emporium-logo.png";
-import { userLoginAction } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import Fade from "react-reveal/Fade";
+
+import { userLoginAction } from "../actions/userActions";
+import logo from "../images/logo/emporium-logo.png";
+import MessageComponent from "../Components/MessageComponents/MessageComponent";
 
 const LoginScreen = () => {
   const history = useHistory();

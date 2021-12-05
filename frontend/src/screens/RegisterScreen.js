@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Form, Grid, Header, Image, Message, Segment } from "semantic-ui-react";
-import logo from "../images/logo/emporium-logo.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import logo from "../images/logo/emporium-logo.png";
 import { userRegisterAction } from "../actions/userActions";
 import { registerInfoValidate } from "../Configurations/authenticator";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
-import axios from "axios";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();

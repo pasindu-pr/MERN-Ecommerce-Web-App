@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Table, Checkbox, Button } from "semantic-ui-react";
-import { dashBoardProductsAction } from "../actions/dashBoardActions";
+import { useSelector, useDispatch } from "react-redux";
+import LoadingComponent from "../Components/LoadingComponent";
+import { useHistory, Link, useParams } from "react-router-dom";
+
 import {
   addProductsToDeleteAction,
   removeProductsToDeleteAction,
   deleteProductsAction,
 } from "../actions/productsActions";
-import { useSelector, useDispatch } from "react-redux";
-import LoadingComponent from "../Components/LoadingComponent";
-import { useHistory, Link, useParams } from "react-router-dom";
+import { dashBoardProductsAction } from "../actions/dashBoardActions";
 import Paginate from "../Components/Paginate";
 
 const ProductManageScreen = () => {

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Table, Icon } from "semantic-ui-react";
-import { dashBoardOrdersAction } from "../actions/dashBoardActions";
 import { useSelector, useDispatch } from "react-redux";
-import LoadingComponent from "../Components/LoadingComponent";
 import { useHistory, Link } from "react-router-dom";
+
+import { dashBoardOrdersAction } from "../actions/dashBoardActions";
+import LoadingComponent from "../Components/LoadingComponent";
 
 const OrderManageScreen = () => {
   const dispatch = useDispatch();

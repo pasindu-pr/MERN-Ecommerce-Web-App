@@ -15,6 +15,7 @@ import {
   shippingDetailsReducer,
   createNewOrderReducer,
   orderDetailsReducer,
+  currentUserOrdersReducer,
 } from "./orderReducers";
 import {
   getPublishableKeyReducer,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   shippingDetails: shippingDetailsReducer,
   newOrder: createNewOrderReducer,
   orderDetails: orderDetailsReducer,
+  currentUserOrders: currentUserOrdersReducer,
   stripekeys: getPublishableKeyReducer,
   stripePaymentIntent: getPaymentIntentReducer,
   darshBoardDetails: dashBoardReducer,

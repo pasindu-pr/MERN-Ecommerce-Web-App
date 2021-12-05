@@ -45,15 +45,8 @@ const getCloudinarySign = asyncHandler(async (req, res) => {
 });
 
 const createProduct = asyncHandler(async (req, res) => {
-  const {
-    name,
-    description,
-    countInStock,
-    brand,
-    category,
-    image,
-    price,
-  } = req.body;
+  const { name, description, countInStock, brand, category, image, price } =
+    req.body;
 
   const newProduct = await Product.create({
     name,
@@ -100,9 +93,6 @@ const getProductsByCategories = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-  console.log(productsCounts);
-
-  console.log(category);
   res.status(200);
   res.json({ products, page, pages: Math.ceil(productsCounts / pageSize) });
 });

@@ -12,7 +12,7 @@ import {
 import logo from "../images/logo/emporium-logo.png";
 import { userLoginAction } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MessageComponent from "../Components/MessageComponents/MessageComponent";
 import Fade from "react-reveal/Fade";
 
@@ -52,7 +52,7 @@ const LoginScreen = () => {
         history.push(redirect);
       }
     }
-  }, [success, history]);
+  }, [success, history, redirect]);
 
   return (
     <Fade duration={1500}>

@@ -71,9 +71,51 @@ const getOrderDetailsAction = (orderId) => async (dispatch) => {
   }
 };
 
+const getCurrentUserOrdersAction =
+  (pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: "CURRENT_USER_ORDERS_REQUEST",
+      });
+
+      const {
+        user: { loggedUser },
+      } = getState();
+
+      const configuration = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/orders/current-user-orders?page=${pageNumber}`,
+        configuration
+      );
+
+      console.log(data);
+
+      dispatch({
+        type: "CURRENT_USER_ORDERS_SUCCESS",
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "CURRENT_USER_ORDERS_FAILURE",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.response,
+      });
+    }
+  };
+
 export {
   orderPricesActions,
   shippingDetailsActions,
   createNewOrderAction,
   getOrderDetailsAction,
+  getCurrentUserOrdersAction,
 };

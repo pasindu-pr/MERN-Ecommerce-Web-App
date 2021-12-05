@@ -39,7 +39,7 @@ const UserAccountScreen = () => {
                 </Button>
                 <Button
                   color="green"
-                  onClick={() => alert("Feature will be available soon")}
+                  onClick={() => history.push("/my-orders/page/1")}
                 >
                   My Orders
                 </Button>

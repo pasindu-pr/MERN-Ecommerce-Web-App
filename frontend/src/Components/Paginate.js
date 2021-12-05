@@ -7,8 +7,11 @@ const Paginate = ({ totalPages, category, page, pageName }) => {
   const history = useHistory();
 
   const handlePageChange = (e, data) => {
+    // Check and redirect user to relavent url's when paginate is clikcked
     if (pageName === "AdminProducts") {
       history.push(`/dashboard/products/${data.activePage}`);
+    } else if (pageName === "CURRENT_USER_ORDERS") {
+      history.push(`/my-orders/page/${data.activePage}`);
     } else {
       history.push(`/category/${category}/page/${data.activePage}`);
     }

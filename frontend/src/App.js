@@ -22,6 +22,7 @@ import ProductsManagerScreen from "./screens/ProductsManagementScreen";
 import CreateProductScreen from "./screens/CreateProductScreen";
 import PasswordResetRequestScreen from "./screens/PasswordResetRequestScreen";
 import PasswordResetScreen from "./screens/PasswordResetScreen";
+import CurrentUserOrdersScreen from "./screens/CurrentUserOrdersScreen";
 
 import { ToastContainer, Zoom } from "react-toastify";
 import DashBoardCategoriesScreen from "./screens/DashBoardCategoriesScreen";
@@ -50,6 +51,11 @@ function App() {
             <Route path="/order/shipping">
               <ShippingScreen />
             </Route>
+
+            <Route path="/my-orders/page/:page_no" exact>
+              <CurrentUserOrdersScreen />
+            </Route>
+
             <Route path="/my-account" exact>
               <UserAccountScreen />
             </Route>
@@ -92,10 +98,6 @@ function App() {
             <Route path="/dashboard/orders" exact>
               <OrderManageScreen />
             </Route>
-            {/* 
-            <Route path="/category/:category" exact>
-              <ProductsByCategoriesScreen />
-            </Route> */}
 
             <Route path="/category/:category/page/:pageNumber">
               <ProductsByCategoriesScreen />

@@ -64,4 +64,21 @@ const getOrderDetails = asyncHandler(async (req, res) => {
   }
 });
 
-export { createNewOrder, getOrderDetails };
+const getCurrentUserOrders = asyncHandler(async (req, res) => {
+  const pageSize = 12;
+  const page = Number(req.query.page) || 1;
+
+  const numberOfOrders = await Order.find({ user: req.user._id }).count();
+
+  const currentUsersOrders = await Order.find({ user: req.user._id }).skip(
+    pageSize * (page - 1)
+  );
+
+  res.status(200);
+  res.json({
+    orders: currentUsersOrders,
+    pages: Math.ceil(numberOfOrders / pageSize),
+  });
+});
+
+export { createNewOrder, getOrderDetails, getCurrentUserOrders };

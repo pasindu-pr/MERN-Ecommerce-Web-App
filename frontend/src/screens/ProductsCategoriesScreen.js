@@ -8,6 +8,7 @@ import { getProductsByCategoriesAction } from "../actions/productsActions";
 import _ from "lodash";
 import Footer from "../Components/Footer";
 import Paginate from "../Components/Paginate";
+import { Divider, Header } from "semantic-ui-react";
 
 const ProductsCategoriesScreen = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,12 @@ const ProductsCategoriesScreen = () => {
       {loading && <LoadingComponent />}
       {products && (
         <MainContainer>
-          <CatHeading>{`${_.capitalize(category)}`} at Emporium</CatHeading>
+          <Divider horizontal>
+            <Header as="h1" className="heading">
+              {`${_.startCase(_.toLower(category))}`} At Emporium
+            </Header>
+          </Divider>
+          <CatHeading></CatHeading>
 
           <Cards>
             {products.map((product) => (
@@ -60,6 +66,10 @@ const ProductsCategoriesScreen = () => {
 const MainContainer = styled.div`
   min-width: 100vw;
   min-height: 100vh;
+
+  .heading {
+    color: #5c5f63;
+  }
 `;
 
 const CatHeading = styled.h1`

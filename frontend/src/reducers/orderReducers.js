@@ -50,9 +50,31 @@ const orderDetailsReducer = (state = { order: {} }, action) => {
   }
 };
 
+const currentUserOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case "CURRENT_USER_ORDERS_REQUEST":
+      return { loading: true, orders: {} };
+
+    case "CURRENT_USER_ORDERS_SUCCESS":
+      return {
+        loading: false,
+        success: true,
+        orders: action.payload.orders,
+        pages: action.payload.pages,
+      };
+
+    case "CURRENT_USER_ORDERS_FAILURE":
+      return { loading: false, success: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
 export {
   orderPriceReducer,
   shippingDetailsReducer,
   createNewOrderReducer,
   orderDetailsReducer,
+  currentUserOrdersReducer,
 };

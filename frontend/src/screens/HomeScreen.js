@@ -13,6 +13,7 @@ import LoadingComponent from "../Components/LoadingComponent";
 import { checkAuthAction } from "../actions/generalActions";
 import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
+import { Divider, Header } from "semantic-ui-react";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,8 @@ const HomeScreen = () => {
   const user = useSelector((state) => state.user);
   const { loggedUser } = user;
 
-  const {
-    loading: categoriesLoading,
-    categories: productsCategories,
-  } = categories;
+  const { loading: categoriesLoading, categories: productsCategories } =
+    categories;
 
   useEffect(() => {
     dispatch(getLatestProductsAction());
@@ -47,7 +46,11 @@ const HomeScreen = () => {
       <Fade bottom>
         <CarousalComponent />
         <CatContainer>
-          <h3> Categories </h3>
+          <Divider horizontal>
+            <Header as="h2" className="heading">
+              Categories
+            </Header>
+          </Divider>
           <CardsContainer>
             <CatCardsGroup textAlign="center">
               {categoriesLoading ? (
@@ -69,7 +72,11 @@ const HomeScreen = () => {
                 </>
               )}
             </CatCardsGroup>
-            <h3> Latest Products</h3>
+            <Divider horizontal>
+              <Header as="h2" className="heading">
+                Latest Products
+              </Header>
+            </Divider>
 
             <CardGroup>
               {latestProductsLoading ? (
@@ -100,13 +107,15 @@ const HomeScreen = () => {
   );
 };
 
-// const MainContainer = styled.div``;
-
 const CatContainer = styled.div`
   h3 {
     font-family: "Raleway", sans-serif;
     text-align: center;
     padding-top: 2rem;
+  }
+
+  .divider {
+    margin: 4rem 0;
   }
 `;
 

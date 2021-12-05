@@ -2,7 +2,6 @@ import React from "react";
 import { CarouselProvider, Slider, Slide, Image } from "pure-react-carousel";
 import carouselImages from "../carouselImages";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import styled from "styled-components";
 
 const CarousalComponent = () => {
   return (
@@ -16,11 +15,7 @@ const CarousalComponent = () => {
         <Slider>
           {carouselImages.map((image, index) => (
             <Slide key={index}>
-              <Image
-                className="slider-cont"
-                src={image.src}
-                className="carousel-image"
-              />
+              <Image className="slider-cont carousel-image" src={image.src} />
             </Slide>
           ))}
         </Slider>

@@ -55,6 +55,10 @@ const DashBoardScreen = () => {
               <Statistic.Value>{details.orders}</Statistic.Value>
               <Statistic.Label>Orders</Statistic.Label>
             </Statistic>
+            <Statistic size="tiny" className="item">
+              <Statistic.Value>{details.ordersToShip}</Statistic.Value>
+              <Statistic.Label>Orders to ship</Statistic.Label>
+            </Statistic>
             <Statistic size="small" className="item">
               <Statistic.Value>${details.revenue}</Statistic.Value>
               <Statistic.Label>Revenue</Statistic.Label>

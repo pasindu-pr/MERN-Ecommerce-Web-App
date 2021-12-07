@@ -81,4 +81,20 @@ const getCurrentUserOrders = asyncHandler(async (req, res) => {
   });
 });
 
-export { createNewOrder, getOrderDetails, getCurrentUserOrders };
+const markOrderAsShipped = asyncHandler(async (req, res) => {
+  const { orderId } = req.body;
+  const order = await Order.findById(orderId);
+
+  order.isDelivered = true;
+  const savedOrder = await order.save();
+
+  res.status(204);
+  res.json(savedOrder);
+});
+
+export {
+  createNewOrder,
+  getOrderDetails,
+  getCurrentUserOrders,
+  markOrderAsShipped,
+};

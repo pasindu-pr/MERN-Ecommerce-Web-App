@@ -10,6 +10,9 @@ const dashBoardScreenDetails = asyncHandler(async (req, res) => {
 
   const revenue = orders.reduce((acc, item) => acc + item.totalOrderPrice, 0);
   const orderCount = orders.length;
+  const ordersToShip = await Order.find({
+    isDelivered: false,
+  }).countDocuments();
 
   res.status(200);
   res.json({
@@ -17,6 +20,7 @@ const dashBoardScreenDetails = asyncHandler(async (req, res) => {
     revenue,
     users: usersCount,
     products,
+    ordersToShip,
   });
 });
 

@@ -5,6 +5,7 @@ import {
   getDashboardUsers,
   getDashboardProducts,
 } from "../Controllers/dashBoardControllers.js";
+import { markOrderAsShipped } from "../Controllers/orderControllers.js";
 import {
   authenticatedMiddleware,
   adminProtect,
@@ -22,5 +23,7 @@ router
 router
   .route("/products")
   .get(authenticatedMiddleware, adminProtect, getDashboardProducts);
+
+router.route("/ship").put(markOrderAsShipped);
 
 export default router;

@@ -6,7 +6,7 @@ const LoadingComponent = () => {
   return (
     <>
       <MainContainer>
-        <div class="lds-ripple">
+        <div className="lds-ripple">
           <div></div>
           <div></div>
         </div>

@@ -4,21 +4,52 @@ import path from "path";
 import _ from "lodash";
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
+import Sale from "../Models/saleModel.js";
+import { getRunningSale } from "./SalesControllers.js";
 
 dotenv.config();
 
 const getLatestProducts = asyncHandler(async (req, res) => {
-  const latestProducts = await Product.find({})
+  let latestProducts = await Product.find({})
+    .populate({ path: "saleId", select: "discountPrecentage" })
     .sort({ createdAt: "descending" })
     .limit(8);
 
+  const runningSale = await getRunningSale();
+
+  if (runningSale) {
+    latestProducts = latestProducts.map((product) => {
+      return {
+        ...product.toObject(),
+        discountedPrice: (
+          product.price -
+          (product.price * runningSale.discountPrecentage) / 100
+        ).toFixed(2),
+      };
+    });
+  }
+
+  res.status(200);
   res.json(latestProducts);
 });
 
 const getProductDetails = asyncHandler(async (req, res) => {
   const product_id = req.params.id;
-  const productDetails = await Product.findById(product_id);
+  let productDetails = await Product.findById(product_id);
 
+  const runningSale = await getRunningSale();
+
+  if (runningSale) {
+    productDetails = {
+      ...productDetails.toObject(),
+      discountedPrice: (
+        productDetails.price -
+        (productDetails.price * runningSale.discountPrecentage) / 100
+      ).toFixed(2),
+    };
+  }
+
+  res.status(200);
   res.json(productDetails);
 });
 
@@ -87,11 +118,25 @@ const getProductsByCategories = asyncHandler(async (req, res) => {
   const page = Number(req.query.page) || 1;
 
   const productsCounts = await Product.countDocuments({ category });
-  const products = await Product.find({
+  let products = await Product.find({
     category,
   })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+
+  const runningSale = await getRunningSale();
+
+  if (runningSale) {
+    products = products.map((product) => {
+      return {
+        ...product.toObject(),
+        discountedPrice: (
+          product.price -
+          (product.price * runningSale.discountPrecentage) / 100
+        ).toFixed(2),
+      };
+    });
+  }
 
   res.status(200);
   res.json({ products, page, pages: Math.ceil(productsCounts / pageSize) });

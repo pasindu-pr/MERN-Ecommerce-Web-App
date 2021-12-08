@@ -5,7 +5,14 @@ import styled from "styled-components";
 
 import { truncateName } from "../Configurations/nameConfigure";
 
-const ProductComponent = ({ name, rating, price, image, product_id }) => {
+const ProductComponent = ({
+  name,
+  rating,
+  price,
+  image,
+  product_id,
+  discountedPrice,
+}) => {
   const [stars, setStars] = useState([]);
 
   const starRating = (rating) => {
@@ -56,7 +63,11 @@ const ProductComponent = ({ name, rating, price, image, product_id }) => {
               ))}
             </Card.Meta>
           </Card.Content>
-          <Card.Content>$ : {price}</Card.Content>
+          <Card.Content>
+            $ :
+            <span className={discountedPrice && `discount-price`}>{price}</span>
+            {discountedPrice && <span> {discountedPrice} </span>}
+          </Card.Content>
         </Card>
       </ProductContainer>
     </>
@@ -72,6 +83,11 @@ const ProductContainer = styled.div`
   .image {
     width: 550px;
     max-height: 70%;
+  }
+
+  .discount-price {
+    text-decoration: line-through;
+    margin-right: 10px;
   }
 
   @media only screen and (max-width: 720px) {

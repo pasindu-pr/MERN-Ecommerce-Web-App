@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Statistic, Button } from "semantic-ui-react";
@@ -6,13 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import LoadingComponent from "../Components/LoadingComponent";
 import { dashBoardDetailsAction } from "../actions/dashBoardActions";
+import AppModel from "../Components/AppModel";
+import { getActivatedSaleAction } from "../actions/salesActions";
 
 const DashBoardScreen = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [saleModelOpen, setSaleModelOpen] = useState(false);
 
   useEffect(() => {
     dispatch(dashBoardDetailsAction());
+    dispatch(getActivatedSaleAction());
   }, [dispatch]);
 
   const { loading, details, success } = useSelector(
@@ -21,6 +25,10 @@ const DashBoardScreen = () => {
 
   const user = useSelector((state) => state.user);
   const { loggedUser } = user;
+
+  const { sale, loading: saleLoading } = useSelector(
+    (state) => state.activatedSale
+  );
 
   useEffect(() => {
     if (!loggedUser) {
@@ -46,10 +54,15 @@ const DashBoardScreen = () => {
 
   return (
     <>
-      {loading && <LoadingComponent />}
+      {(loading || saleLoading) && <LoadingComponent />}
 
       {success && (
         <MainContainer>
+          <AppModel
+            isModelOpen={saleModelOpen}
+            setIsModelOpen={setSaleModelOpen}
+            sale={sale}
+          />
           <Card>
             <Statistic size="tiny" className="item">
               <Statistic.Value>{details.orders}</Statistic.Value>
@@ -91,6 +104,10 @@ const DashBoardScreen = () => {
 
           <ButtonContainer>
             <Button.Group>
+              <Button positive onClick={() => setSaleModelOpen(true)}>
+                Sale Management
+              </Button>
+              <Button.Or />
               <Button positive onClick={categoryHandler}>
                 Category Management
               </Button>

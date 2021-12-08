@@ -93,6 +93,9 @@ const HomeScreen = () => {
                       rating={product.rating}
                       price={product.price}
                       product_id={product._id}
+                      discountedPrice={
+                        product.discountedPrice && product.discountedPrice
+                      }
                     />
                   ))}
                 </>

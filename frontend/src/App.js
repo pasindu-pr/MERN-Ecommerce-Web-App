@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GlobalStyles from "./GlobalStyle/globalStyle";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import styled from "styled-components";
 import { ToastContainer, Zoom } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import "semantic-ui-css/semantic.min.css";
 
 import HomeScreen from "./screens/HomeScreen";
@@ -26,11 +27,28 @@ import PasswordResetRequestScreen from "./screens/PasswordResetRequestScreen";
 import PasswordResetScreen from "./screens/PasswordResetScreen";
 import CurrentUserOrdersScreen from "./screens/CurrentUserOrdersScreen";
 import DashBoardCategoriesScreen from "./screens/DashBoardCategoriesScreen";
+import { getActivatedSaleAction } from "./actions/salesActions";
 
 function App() {
+  const { sale } = useSelector((state) => state.activatedSale);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActivatedSaleAction());
+  }, [dispatch]);
+
   return (
     <div className="App">
       <GlobalStyles />
+      {sale && (
+        <SaleAlert>
+          <p>
+            {sale.saleName} sale has been started!! We offer{" "}
+            {sale.discountPrecentage}% off for all products ! Hurry up🎉🎉
+          </p>
+        </SaleAlert>
+      )}
       <Router>
         <nav>
           <NavBar />
@@ -124,6 +142,18 @@ function App() {
 
 const BodyContainer = styled.div`
   min-height: 100vh;
+`;
+
+const SaleAlert = styled.div`
+  width: 100%;
+  height: 35px;
+  background-color: #ffb830;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #8c4214;
 `;
 
 export default App;

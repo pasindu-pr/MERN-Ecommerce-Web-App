@@ -65,7 +65,9 @@ const ProductScreen = () => {
       addToCartAction({
         _id: product._id,
         name: product.name,
-        price: product.price,
+        price: product.discountedPrice
+          ? product.discountedPrice
+          : product.price,
         quantity: quantity,
         image: product.image,
       })
@@ -108,7 +110,15 @@ const ProductScreen = () => {
                       />
                     ))}
                   </p>
-                  <h4> Price : $ {product.price} </h4>
+                  <h4>
+                    Price : $
+                    <span
+                      className={product.discountedPrice && `discount-price`}
+                    >
+                      {product.price}
+                    </span>
+                    {product.discountedPrice && product.discountedPrice}
+                  </h4>
                   <p>{product.description}</p>
 
                   <h4>
@@ -182,6 +192,11 @@ const MainContainer = styled.div`
 
   .notfication-background {
     background: #0000 !important ;
+  }
+
+  .discount-price {
+    text-decoration: line-through;
+    margin-right: 10px;
   }
 
   @media only screen and (max-width: 480px) {

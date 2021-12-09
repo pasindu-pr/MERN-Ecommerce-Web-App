@@ -23,6 +23,8 @@ const NavBar = () => {
 
   const loggedUser = user.loggedUser || {};
 
+  const { sale } = useSelector((state) => state.activatedSale);
+
   const navBarHandler = () => {
     dispatch({
       type: "TOGGLE_NAV_BAR",
@@ -45,7 +47,14 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <Items>
-            <ul>
+            <ul
+              style={{
+                top: sale ? "calc(3.5rem + 35px)" : "3.5rem",
+                height: sale
+                  ? "calc(100vh - (3.5rem + 35px))"
+                  : "calc(100vh - (3.5rem)",
+              }}
+            >
               <Divider horizontal>
                 <Header as="h2" className="heading">
                   Categories

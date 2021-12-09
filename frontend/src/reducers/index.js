@@ -29,7 +29,11 @@ import {
   dashBoardReducer,
   dashBoardUsersReducer,
 } from "./dashBoardReducers";
-import { getActivatedSalesReducer } from "./salesReducer";
+import {
+  getActivatedSalesReducer,
+  startSaleReducer,
+  stopSaleReducer,
+} from "./salesReducer";
 
 const rootReducer = combineReducers({
   navBar: navBarReducer,
@@ -55,6 +59,8 @@ const rootReducer = combineReducers({
   productsToDelete: productsToDeleteReducer,
   deleteProducts: deleteProductReducer,
   activatedSale: getActivatedSalesReducer,
+  startSale: startSaleReducer,
+  stopSale: stopSaleReducer,
 });
 
 export default rootReducer;

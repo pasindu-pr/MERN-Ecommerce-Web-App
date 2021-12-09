@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Header, Form, Message } from "semantic-ui-react";
+import {
+  createSaleAction,
+  getActivatedSaleAction,
+  stopSaleAction,
+} from "../actions/salesActions";
 
 const AppModel = ({ isModelOpen, setIsModelOpen, sale }) => {
-  const [message, setMessage] = useState(null);
-  const [saleCreating, setSaleCreating] = useState(false);
-
   const [saleInfo, setSaleInfo] = useState({
     saleName: "",
     discountPrecentage: "",
@@ -19,49 +21,58 @@ const AppModel = ({ isModelOpen, setIsModelOpen, sale }) => {
     });
   };
 
-  const user = JSON.parse(localStorage.getItem("logged-user"));
+  const dispatch = useDispatch();
 
-  const configuration = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
+  const {
+    sale: sartSaleMessage,
+    loading: startSaleLoading,
+    success: startSaleSuccess,
+  } = useSelector((state) => state.startSale);
+
+  const { sale: endSaleMessage, success: stopSaleSuccess } = useSelector(
+    (state) => state.stopSale
+  );
 
   const stopRunningSale = async () => {
-    console.log(configuration);
-    try {
-      const { data } = await axios.put(
-        `/api/sales/`,
-        { saleId: sale._id },
-        configuration
-      );
-      setMessage(data.message);
-    } catch (error) {
-      alert(error);
-    }
+    dispatch(stopSaleAction(sale));
   };
 
   const createSale = async () => {
-    setSaleCreating(true);
-    try {
-      const { data } = await axios.post(
-        `/api/sales/`,
-        {
-          saleName: saleInfo.saleName,
-          discountPrecentage: saleInfo.discountPrecentage,
-        },
-        configuration
-      );
+    dispatch(createSaleAction(saleInfo));
 
-      setMessage(data.message);
-    } catch (error) {
-      console.log(error);
-      alert(error);
+    if (startSaleSuccess) {
+      dispatch({
+        type: "START_SALE_RESET",
+      });
+
+      dispatch(getActivatedSaleAction());
+      setIsModelOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (startSaleSuccess) {
+      dispatch({
+        type: "START_SALE_RESET",
+      });
+
+      dispatch(getActivatedSaleAction());
+      setIsModelOpen(false);
     }
 
-    setSaleCreating(false);
-  };
+    console.log("Start sale use effect");
+  }, [startSaleSuccess, dispatch, setIsModelOpen]);
+
+  useEffect(() => {
+    if (stopSaleSuccess) {
+      dispatch({
+        type: "STOP_SALE_RESET",
+      });
+
+      dispatch(getActivatedSaleAction());
+      setIsModelOpen(false);
+    }
+  }, [stopSaleSuccess, dispatch, setIsModelOpen]);
 
   return (
     <Modal open={isModelOpen}>
@@ -76,7 +87,9 @@ const AppModel = ({ isModelOpen, setIsModelOpen, sale }) => {
               <p> Discount Precentage: {sale.discountPrecentage} %</p>
               <p> Created Date: {sale.createdAt.substring(0, 10)} </p>
 
-              {message && <Message color="orange"> {message} </Message>}
+              {endSaleMessage && (
+                <Message color="orange"> {endSaleMessage} </Message>
+              )}
             </>
           ) : (
             <>
@@ -102,7 +115,9 @@ const AppModel = ({ isModelOpen, setIsModelOpen, sale }) => {
                   />
                 </Form.Field>
               </Form>
-              {message && <Message color="orange"> {message} </Message>}
+              {sartSaleMessage && (
+                <Message color="orange"> {sartSaleMessage} </Message>
+              )}
             </>
           )}
         </Modal.Description>
@@ -122,7 +137,7 @@ const AppModel = ({ isModelOpen, setIsModelOpen, sale }) => {
             labelPosition="right"
             icon="checkmark"
             onClick={createSale}
-            loading={saleCreating}
+            loading={startSaleLoading}
             positive
           />
         )}
